@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+input[type="file"] {
+    margin: 10px 0 20px 0;
+}
+
+/* ===== Abas ===== */
+#abas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.aba {
+    display: flex;
+    align-items: center;
+    background: #007bff;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: bold;
+    text-transform: capitalize;
+    position: relative;
+}
+
+.aba:hover {
+    background: #0056b3;
+}
+
+.aba.ativa {
+    background: #28a745;
+}
+
+.aba .fechar {
+    margin-left: 8px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 19px;
+    cursor: pointer;
+}
+
+.aba .fechar:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== Área das planilhas ===== */
+#secoes {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.secao {
+    display: none;
+}
+
+.secao.ativa {
+    display: block;
+}
+
+/* ===== Botões ===== */
+.botoes {
+    margin: 10px 0 20px 0;
+}
+
+button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* ===== Tabela ===== */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background: #4CAF50;
+    color: white;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ===== Seleção tipo Excel ===== */
+td.selecionado {
+    background-color: #b3d7ff !important;
+}
+
+tr.linha-selecionada td {
+    background-color: #a0e0b0 !important;
+}
+
+/* ===== Cabeçalho de impressão ===== */
+#cabecalho-relatorio {
+    display: none;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#cabecalho-relatorio h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #333;
+}
+
+#cabecalho-relatorio p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* ===== Impressão ===== */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .secao.ativa,
+    .secao.ativa * {
+        visibility: visible;
+    }
+
+    #cabecalho-relatorio {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 0;
+        width: 100%;
+    }
+
+    table {
+        position: absolute;
+        top: 120px;
+        left: 0;
+        width: 100%;
+        border: 1px solid #000 !important;
+        border-collapse: collapse !important;
+    }
+
+    th,
+    td {
+        border: 1px solid #000 !important;
+        padding: 6px;
+    }
+
+    @page {
+        margin: 10mm;
+    }
+
+    body {
+        background: white;
+    }
+}

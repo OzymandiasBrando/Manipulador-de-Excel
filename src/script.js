@@ -72,6 +72,7 @@ async function carregarArquivo(file) {
 function mostrarCheckboxes(id) {
     const div = document.getElementById(`colunas-${id}`);
     div.innerHTML = "<h3>Selecione as colunas:</h3>";
+<<<<<<< HEAD
     // Usa colunasPorSecao[id] como fonte de verdade para as colunas originais.
     colunasPorSecao[id].forEach((col) => {
         // Verifica se a coluna ainda está na lista de colunas selecionadas para marcar o checkbox
@@ -79,6 +80,12 @@ function mostrarCheckboxes(id) {
         div.innerHTML += `
           <label>
             <input type="checkbox" class="coluna-check-${id}" value="${col}" ${isChecked}> ${col}
+=======
+    colunasPorSecao[id].forEach((col) => {
+        div.innerHTML += `
+          <label>
+            <input type="checkbox" class="coluna-check-${id}" value="${col}" checked> ${col}
+>>>>>>> db8329feb68dd45cbbc5587424025230037f090e
           </label>
         `;
     });
@@ -103,8 +110,11 @@ function configurarBotoes(id) {
         const formatado = dataAtual.toLocaleDateString("pt-BR") + " " + dataAtual.toLocaleTimeString("pt-BR");
         document.getElementById(`data-relatorio-${id}`).textContent = "Gerado em: " + formatado;
         selecionarAba(id);
+<<<<<<< HEAD
         // Coloca o foco na tabela (opcional, mas bom para garantir a impressão)
         document.getElementById(`secao-${id}`).scrollIntoView({ behavior: 'smooth' });
+=======
+>>>>>>> db8329feb68dd45cbbc5587424025230037f090e
         window.print();
     });
 }
@@ -114,6 +124,7 @@ function gerarTabela(id) {
     const tabela = document.getElementById(`tabela-${id}`);
     tabela.innerHTML = "";
 
+<<<<<<< HEAD
     // Usa sempre a lista de colunas SELECIONADAS para renderizar a tabela
     const colunas = colunasSelecionadasPorSecao[id];
     const dados = dadosPorSecao[id];
@@ -143,11 +154,22 @@ function gerarTabela(id) {
         });
         th.appendChild(removeIcon);
 
+=======
+    const colunas = colunasSelecionadasPorSecao[id];
+    const dados = dadosPorSecao[id];
+
+    const thead = document.createElement("thead");
+    const trHead = document.createElement("tr");
+    colunas.forEach((c) => {
+        const th = document.createElement("th");
+        th.textContent = c;
+>>>>>>> db8329feb68dd45cbbc5587424025230037f090e
         trHead.appendChild(th);
     });
     thead.appendChild(trHead);
     tabela.appendChild(thead);
 
+<<<<<<< HEAD
     // Cria o corpo (tbody)
     const tbody = document.createElement("tbody");
     dados.forEach((linha, rowIndex) => {
@@ -179,6 +201,14 @@ function gerarTabela(id) {
                 td.prepend(removeIcon);
             }
 
+=======
+    const tbody = document.createElement("tbody");
+    dados.forEach((linha) => {
+        const tr = document.createElement("tr");
+        colunas.forEach((c) => {
+            const td = document.createElement("td");
+            td.textContent = linha[c];
+>>>>>>> db8329feb68dd45cbbc5587424025230037f090e
             tr.appendChild(td);
         });
         tbody.appendChild(tr);
@@ -188,6 +218,7 @@ function gerarTabela(id) {
     ativarSelecaoExcel(tabela);
 }
 
+<<<<<<< HEAD
 // 🗑️ Remover coluna da tabela e dos dados
 function removerColuna(id, nomeColuna) {
     if (!confirm(`Tem certeza que deseja remover a coluna "${nomeColuna}"?`)) return;
@@ -261,6 +292,8 @@ function selecionarLinhaCompleta(tr) {
     });
 }
 
+=======
+>>>>>>> db8329feb68dd45cbbc5587424025230037f090e
 // 📤 Exportar Excel
 function exportarExcel(id) {
     const colunas = colunasSelecionadasPorSecao[id];

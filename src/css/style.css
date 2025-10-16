@@ -96,23 +96,13 @@ button:hover {
 }
 
 /* ===== Tabela ===== */
-<<<<<<< HEAD
-/* ... SEÇÕES ANTERIORES DO CSS FICAM INTACTAS ... */
-
-/* ===== Tabela ===== */
-=======
->>>>>>> db8329feb68dd45cbbc5587424025230037f090e
 table {
     border-collapse: collapse;
     width: 100%;
     background: white;
     margin-top: 20px;
     border: 1px solid #ccc;
-<<<<<<< HEAD
     position: relative;
-    /* Necessário para posicionamento do ícone de remoção de linha */
-=======
->>>>>>> db8329feb68dd45cbbc5587424025230037f090e
 }
 
 th,
@@ -120,24 +110,23 @@ td {
     border: 1px solid #000;
     padding: 3px;
     text-align: left;
-<<<<<<< HEAD
     position: relative;
-    /* Necessário para posicionamento do ícone de remoção de coluna */
-=======
->>>>>>> db8329feb68dd45cbbc5587424025230037f090e
 }
 
 th {
     background: #4CAF50;
     color: white;
     text-align: center;
-<<<<<<< HEAD
     cursor: pointer;
-    /* Indica que é clicável (para dblclick) */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 /* --- ESTILOS DE REMOÇÃO DE LINHA/COLUNA --- */
 
+/* Estilo para o ícone de remoção da coluna (no TH) */
 .remover-coluna {
     position: absolute;
     top: -5px;
@@ -152,14 +141,14 @@ th {
 
 th:hover .remover-coluna {
     opacity: 1;
-    /* Mostra o X ao passar o mouse no cabeçalho */
 }
 
+/* Estilo para o ícone de remoção da linha (na primeira TD) */
 .remover-linha {
+    /* Posição fora do fluxo normal do texto */
     position: absolute;
     top: 50%;
     left: -20px;
-    /* Posição fora da tabela para não atrapalhar o conteúdo da célula */
     transform: translateY(-50%);
     font-size: 10px;
     cursor: pointer;
@@ -170,23 +159,18 @@ th:hover .remover-coluna {
     padding: 2px 4px;
     border: 1px solid red;
     line-height: 1;
+    z-index: 10;
 }
 
 tr:hover .remover-linha {
     opacity: 1;
-    /* Mostra o X ao passar o mouse na linha */
 }
 
-/* ... SEÇÕES FINAIS DO CSS FICAM INTACTAS ... */
-
-=======
+/* Ajusta o padding na primeira célula para o ícone não se sobrepor */
+tbody tr td:first-child {
+    padding-left: 25px;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
->>>>>>> db8329feb68dd45cbbc5587424025230037f090e
 /* ===== Seleção tipo Excel ===== */
 td.selecionado {
     background-color: #b3d7ff !important;
@@ -214,45 +198,85 @@ tr.linha-selecionada td {
     color: #555;
 }
 
-/* ===== Impressão ===== */
+/* ===== Impressão (CORRIGIDO) ===== */
 @media print {
-    body * {
-        visibility: hidden;
+
+    /* 1. Oculta TUDO que não é necessário (input, abas, botões, colunas de seleção) */
+    body>*:not(#secoes) {
+        display: none !important;
     }
 
-    .secao.ativa,
-    .secao.ativa * {
-        visibility: visible;
+    /* 2. Garante que apenas a seção ativa e o conteúdo essencial sejam visíveis */
+    .secao:not(.ativa) {
+        display: none;
     }
 
+    /* 3. Garante que a seção ativa se expanda */
+    #secoes {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background-color: transparent !important;
+        width: 100% !important;
+    }
+
+    .secao.ativa {
+        display: block !important;
+    }
+
+    /* 4. Mostra e ajusta o cabeçalho do relatório */
     #cabecalho-relatorio {
-        display: block;
-        position: absolute;
-        top: 10px;
-        left: 0;
-        width: 100%;
+        display: block !important;
+        position: static !important;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+        padding-top: 0 !important;
     }
 
+    /* 5. Ajusta a tabela para preencher a largura e corrigir as bordas */
     table {
-        position: absolute;
-        top: 120px;
-        left: 0;
-        width: 100%;
+        position: static !important;
+        width: 100% !important;
+        margin-top: 0px !important;
         border: 1px solid #000 !important;
         border-collapse: collapse !important;
+        page-break-inside: auto;
     }
 
+    /* 6. Garante que todas as células tenham borda e padding correto */
     th,
     td {
         border: 1px solid #000 !important;
-        padding: 6px;
+        padding: 6px !important;
     }
 
+    /* 7. Remove elementos de interação/remoção da impressão */
+    .remover-coluna,
+    .remover-linha,
+    td.selecionado,
+    tr.linha-selecionada td,
+    /* Remove o padding extra da primeira célula */
+    tbody tr td:first-child {
+        padding-left: 6px !important;
+        /* Volta ao padding normal */
+        background: inherit !important;
+        display: table-cell !important;
+    }
+
+    .remover-coluna,
+    .remover-linha {
+        display: none !important;
+    }
+
+    /* 8. Ajusta as margens da página */
     @page {
         margin: 10mm;
+        /* Margens pequenas em todos os lados para maximizar o espaço */
     }
 
     body {
         background: white;
+        padding: 0;
+        margin: 0;
     }
 }

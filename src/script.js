@@ -209,7 +209,6 @@ function removerColuna(id, nomeColuna) {
 // 🗑️ Remover linha da tabela e dos dados
 function removerLinha(id, rowIndex) {
     if (!confirm("Tem certeza que deseja remover esta linha?")) return;
-
     // Remove a linha do array de dados brutos usando o índice
     dadosPorSecao[id].splice(rowIndex, 1);
 
